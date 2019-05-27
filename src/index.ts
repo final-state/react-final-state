@@ -28,11 +28,11 @@ export function useSubscription<T>(store: Store<T>, listener: Listener<T>) {
  * You can do it by yourself. This is just a shortcut hook.
  */
 export function useCriteria<T, K = object>(store: Store<K>, path: string) {
-  const getCriteria = useCallback((): T => {
+  const getCriteria = useCallback((): T | undefined => {
     const state = store.getState();
     return get(state, path);
   }, [store, path]);
-  const [criteria, setCriteria] = useState<T>(getCriteria());
+  const [criteria, setCriteria] = useState(getCriteria());
   const listener = useCallback(() => setCriteria(getCriteria()), [getCriteria]);
   useSubscription<K>(store, listener);
   return criteria;
