@@ -207,7 +207,7 @@ import RouterState from 'react-final-state';
 ```
 It is a "shadow" component that renders nothing but helps us track the latest state of `react-router`.
 
-So you should add it before your business code like the [example](https://github.com/final-state/react-final-state#)
+So you should add it before your business code like the [example](https://github.com/final-state/react-final-state/blob/master/README.md#use-with-react-router)
 #### useHistory, useLocation, useMatch
 ```javascript
 import {
