@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/final-state/react-final-state.svg?branch=master)](https://travis-ci.com/final-state/react-final-state)
-[![DepShield Badge](https://depshield.sonatype.org/badges/final-state/react-final-state/depshield.svg)](https://depshield.github.io)
+[![Known Vulnerabilities](https://snyk.io/test/github/final-state/react-final-state/badge.svg)](https://snyk.io/test/github/react-final-state/final-state)
 
 # react-final-state
 
