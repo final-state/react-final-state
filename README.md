@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/final-state/react-final-state.svg?branch=master)](https://travis-ci.com/final-state/react-final-state)
+[![DepShield Badge](https://depshield.sonatype.org/badges/final-state/react-final-state/depshield.svg)](https://depshield.github.io)
+
 # react-final-state
 
 > [final-state](https://github.com/final-state/final-state) for React
@@ -110,7 +113,9 @@ function MyComponent() {
 More details about `dispatch` and `action`, please see [Store#dispatch](https://github.com/final-state/final-state#storedispatchaction-actionparams).
 
 ### Use with `react-router`
+
 Add `RouterState` component as a child of `BrowserRouter`:
+
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -126,13 +131,11 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 ```
+
 Track router's state:
+
 ```javascript
-import {
-  useHistory,
-  useLocation,
-  useMatch,
-} from 'react-final-state';
+import { useHistory, useLocation, useMatch } from 'react-final-state';
 // use these hooks to track router's state
 const history = useHistory();
 const location = useLocation();
@@ -201,21 +204,23 @@ useSubscription(store, listener);
 ```
 
 ### react-router
+
 #### RouterState
+
 ```javascript
 import RouterState from 'react-final-state';
 ```
+
 It is a "shadow" component that renders nothing but helps us track the latest state of `react-router`.
 
 So you should add it before your business code like the [example](https://github.com/final-state/react-final-state/blob/master/README.md#use-with-react-router)
+
 #### useHistory, useLocation, useMatch
+
 ```javascript
-import {
-  useHistory,
-  useLocation,
-  useMatch,
-} from 'react-final-state';
+import { useHistory, useLocation, useMatch } from 'react-final-state';
 ```
+
 Hooks for you to track the `history`, `location` and `match` of [react-router withRouter](https://reacttraining.com/react-router/web/api/withRouter)
 
 ## Test
