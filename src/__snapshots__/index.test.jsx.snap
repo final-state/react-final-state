@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`\`useCriteria\` can correctly track the changes of state 1`] = `
+<div>
+  <h1>
+    a
+    1
+  </h1>
+  <h1>
+    b
+    good
+  </h1>
+  <h1>
+    c
+    true
+  </h1>
+</div>
+`;
+
+exports[`\`useCriteria\` can correctly track the changes of state 2`] = `
+<div>
+  <h1>
+    a
+    1
+  </h1>
+  <h1>
+    b
+    good
+  </h1>
+  <h1>
+    c
+    true
+  </h1>
+</div>
+`;
+
+exports[`\`useCriteria\` can correctly track the changes of state 3`] = `
+<div>
+  <h1>
+    a
+    1
+  </h1>
+  <h1>
+    b
+    good
+  </h1>
+  <h1>
+    c
+    true
+  </h1>
+</div>
+`;
