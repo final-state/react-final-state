@@ -1,6 +1,6 @@
 {
   "name": "react-final-state",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "index.js",
   "author": "yuanqiulee@gmail.com",
   "license": "MIT",
@@ -18,9 +18,9 @@
   },
   "peerDependencies": {
     "final-state": "0.2.3",
+    "lodash.get": "^4.4.2",
     "react": "^16.8.0",
-    "react-router": "^5.0.0",
-    "lodash.get": "^4.4.2"
+    "react-router": "^5.0.0"
   },
   "sideEffects": false,
   "devDependencies": {
