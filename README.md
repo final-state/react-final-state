@@ -233,3 +233,9 @@ This project uses [jest](https://jestjs.io/) to perform testing.
 ```bash
 yarn test
 ```
+
+## Road Map
+
+[] Fix tests
+
+[] Codecov 100%

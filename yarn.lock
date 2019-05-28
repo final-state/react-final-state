@@ -2181,10 +2181,10 @@ fill-range@^4.0.0:
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
 
-final-state@0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/final-state/-/final-state-0.2.4.tgz#a559184232675b4ec405d1b7fcbb4b396005704d"
-  integrity sha512-9vZfu3NLuI/3Rx8192k1IKL31ar1+ubgcwxmp/PzzKipjnpmAmbSigVKc1iLQw1xUFdUMs1fuw0seP/Hs2grgg==
+final-state@0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/final-state/-/final-state-0.2.6.tgz#510465cf9be6bfeef58d9720b7aef2bc9cd2524d"
+  integrity sha512-Whth1BX54X0yTqjVUDCu/nOjq1faFEa51exs6IHExsh3Dch7nmbgciwJgTNCAy7Fieyp0xoyPAowLEV9LWfjLw==
 
 find-up@^2.0.0, find-up@^2.1.0:
   version "2.1.0"

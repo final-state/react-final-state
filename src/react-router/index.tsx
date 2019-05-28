@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { withRouter, RouteComponentProps, match as Match } from 'react-router';
 import { Location, History } from 'history';
-import Store from 'final-state';
+import Store, { ActionMap } from 'final-state';
 import { useCriteria } from '..';
 
 interface State {
@@ -14,7 +14,19 @@ interface State {
 
 const initialState: State = {};
 
-const store = new Store(initialState);
+const actions: ActionMap<State> = {
+  setMatch(draftState, match) {
+    draftState.match = match;
+  },
+  setHistory(draftState, history) {
+    draftState.history = history;
+  },
+  setLocation(draftState, location) {
+    draftState.location = location;
+  },
+};
+
+const store = new Store(initialState, actions, 'react-router');
 
 export function useMatch() {
   return useCriteria<Match>(store, 'match');
@@ -30,19 +42,13 @@ export function useHistory() {
 
 function RouterState({ match, location, history }: RouteComponentProps) {
   useEffect(() => {
-    store.dispatch(draftState => {
-      draftState.match = match;
-    });
+    store.dispatch('setMatch', match);
   }, [match]);
   useEffect(() => {
-    store.dispatch(draftState => {
-      draftState.location = location;
-    });
+    store.dispatch('setLocation', location);
   }, [location]);
   useEffect(() => {
-    store.dispatch(draftState => {
-      draftState.history = history;
-    });
+    store.dispatch('setHistory', history);
   }, [history]);
   return null;
 }
