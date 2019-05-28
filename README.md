@@ -13,10 +13,9 @@
 ```bash
 yarn add final-state
 yarn add react-final-state
-# or
-npm install final-state
-npm install react-final-state
 ```
+
+You should care about the `peer dependencies` of these two packages. If something not installed, just install them manually.
 
 `final-state` and `react-final-state` are written in `Typescript`, so you don't need to find a type definition for it.
 
