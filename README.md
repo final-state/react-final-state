@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/final-state/react-final-state.svg?branch=master)](https://travis-ci.com/final-state/react-final-state)
 [![codecov.io](https://codecov.io/gh/final-state/react-final-state/branch/master/graph/badge.svg)](https://codecov.io/gh/final-state/react-final-state)
 [![Known Vulnerabilities](https://snyk.io/test/github/final-state/react-final-state/badge.svg)](https://snyk.io/test/github/react-final-state/final-state)
-[![minified + gzip](https://badgen.net/bundlephobia/minzip/react-final-state@0.2.5)](https://bundlephobia.com/result?p=react-final-state@0.2.5)
+[![minified + gzip](https://badgen.net/bundlephobia/minzip/react-final-state@0.2.6)](https://bundlephobia.com/result?p=react-final-state@0.2.6)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 # react-final-state
@@ -32,8 +32,17 @@ import Store from 'final-state';
 
 // 1. define the whole state tree
 const initialState = {};
-// 2. create store instance and export it out
-export default new Store(initialState);
+// 2. define actions
+const actions = {
+  fooAction(draftState) {
+    // ...
+  },
+  barAction(draftState, params) {
+    // ...
+  },
+};
+// 3. create store instance and export it out
+export default new Store(initialState, actions, 'store-name-1');
 ```
 
 You may want to use multiple store in your app, that's fine, just create multiple store instances and export them out:
@@ -43,10 +52,20 @@ You may want to use multiple store in your app, that's fine, just create multipl
 import Store from 'final-state';
 
 const fooInitialState = {};
-export const fooStore = new Store(fooInitialState);
+const fooActions = {
+  fooAction(draftState) {
+    // ...
+  },
+},
+export const fooStore = new Store(fooInitialState, fooActions, 'foo');
 
 const barInitialState = {};
-export const barStore = new Store(barInitialState);
+const barActions = {
+  barAction(draftState) {
+    // ...
+  },
+},
+export const barStore = new Store(barInitialState, barActions, 'bar');
 ```
 
 ### How to track state
