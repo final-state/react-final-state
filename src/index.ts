@@ -8,9 +8,8 @@ import Store, { Listener } from 'final-state';
  * You can do it by yourself. This is just a shortcut hook.
  * @param store specify which store instance you want to subscribe
  * @param listener the listener that will be triggered when state is changed
- * @template T the type of your state
  */
-export function useSubscription<T>(store: Store<T>, listener: Listener<T>) {
+export function useSubscription(store: Store, listener: Listener) {
   useEffect(() => {
     store.subscribe(listener);
     return () => store.unSubscribe(listener);
@@ -23,17 +22,16 @@ export function useSubscription<T>(store: Store<T>, listener: Listener<T>) {
  * @param {string} path the path of the property to track.
  * @see https://lodash.com/docs/4.17.11#get
  * @template T the type of the state that you are tracking
- * @template K the type of your state
  *
  * You can do it by yourself. This is just a shortcut hook.
  */
-export function useCriteria<T, K = object>(store: Store<K>, path: string) {
+export function useCriteria<T>(store: Store, path: string) {
   const getCriteria = useCallback((): T | undefined => {
     const state = store.getState();
     return get(state, path);
   }, [store, path]);
   const [criteria, setCriteria] = useState(getCriteria());
   const listener = useCallback(() => setCriteria(getCriteria()), [getCriteria]);
-  useSubscription<K>(store, listener);
+  useSubscription(store, listener);
   return criteria;
 }

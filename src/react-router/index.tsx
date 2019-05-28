@@ -1,42 +1,34 @@
 /* eslint no-param-reassign: 0 */
 
-import React, { ReactElement, useEffect } from 'react';
+import { useEffect } from 'react';
 import { withRouter, RouteComponentProps, match as Match } from 'react-router';
 import { Location, History } from 'history';
 import Store from 'final-state';
 import { useCriteria } from '..';
 
 interface State {
-  match: Match | null;
-  location: Location | null;
-  history: History | null;
+  match?: Match;
+  location?: Location;
+  history?: History;
 }
 
-const initialState: State = {
-  match: null,
-  location: null,
-  history: null,
-};
+const initialState: State = {};
 
 const store = new Store(initialState);
 
 export function useMatch() {
-  return useCriteria<Match | null, State>(store, 'match');
+  return useCriteria<Match>(store, 'match');
 }
 
 export function useLocation() {
-  return useCriteria<Location | null, State>(store, 'location');
+  return useCriteria<Location>(store, 'location');
 }
 
 export function useHistory() {
-  return useCriteria<History | null, State>(store, 'history');
+  return useCriteria<History>(store, 'history');
 }
 
-function RouterState({
-  match,
-  location,
-  history,
-}: RouteComponentProps): ReactElement {
+function RouterState({ match, location, history }: RouteComponentProps) {
   useEffect(() => {
     store.dispatch(draftState => {
       draftState.match = match;
@@ -52,7 +44,7 @@ function RouterState({
       draftState.history = history;
     });
   }, [history]);
-  return <></>;
+  return null;
 }
 
 export default withRouter(RouterState);
