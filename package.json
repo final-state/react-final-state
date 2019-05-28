@@ -16,7 +16,7 @@
     "test": "jest --coverage"
   },
   "peerDependencies": {
-    "final-state": "^0.1.4",
+    "final-state": "0.2.1",
     "react": "^16.8.0",
     "react-router": "^5.0.0"
   },
@@ -39,7 +39,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.11.0",
-    "final-state": "^0.1.4",
+    "final-state": "0.2.1",
     "history": "^4.9.0",
     "jest": "^24.7.1",
     "prettier": "^1.17.1",
