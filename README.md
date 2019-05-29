@@ -163,6 +163,15 @@ const location = useLocation();
 const match = useMatch();
 ```
 
+Use `final-state-logger` to print the changes of react-router's state
+
+```javascript
+import { applyLogger } from 'react-final-state';
+import finalStateLogger from 'final-state-logger';
+
+applyLogger(finalStateLogger);
+```
+
 ## API Reference
 
 ### useCriteria
@@ -243,6 +252,14 @@ import { useHistory, useLocation, useMatch } from 'react-final-state';
 ```
 
 Hooks for you to track the `history`, `location` and `match` of [react-router withRouter](https://reacttraining.com/react-router/web/api/withRouter)
+
+#### applyLogger
+
+```javascript
+import { applyLogger } from 'react-final-state';
+```
+
+A helper function to apply `final-state-logger` to the store instance of `react-final-state/react-router`
 
 ## Test
 

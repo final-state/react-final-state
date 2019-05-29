@@ -40,6 +40,10 @@ export function useHistory() {
   return useCriteria<History>(store, 'history');
 }
 
+export function applyLogger(logger: (store: Store) => void) {
+  logger(store);
+}
+
 function RouterState({ match, location, history }: RouteComponentProps) {
   useEffect(() => {
     store.dispatch('setMatch', match);

@@ -17,7 +17,7 @@
     "update-readme": "node scripts/update-readme.js"
   },
   "peerDependencies": {
-    "final-state": "0.2.6",
+    "final-state": "^0.2.6",
     "lodash.get": "^4.4.2",
     "react": "^16.8.0",
     "react-router": "^5.0.0"
@@ -34,6 +34,8 @@
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.6.0",
     "babel-jest": "^24.8.0",
+    "date-fns": "^2.0.0-alpha.27",
+    "deep-diff": "^1.0.2",
     "eslint": "5.3.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "^4.3.0",
@@ -41,7 +43,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.11.0",
-    "final-state": "0.2.6",
+    "final-state": "^0.2.6",
     "history": "^4.9.0",
     "immer": "^3.1.2",
     "jest": "^24.7.1",
