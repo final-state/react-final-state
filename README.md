@@ -100,38 +100,19 @@ export default function MyComponent() {
 ```javascript
 import { store } from '<YOUR_PATH>/store';
 
-/* Assume your state object is
-{
-  cpu: {
-    load: {
-      m1: 2.5,
-      m5: 1.2,
-      m15: 1.03,
-    },
-  },
-}
-*/
-
-// Define an action to alter state
-// the first parameter `draftState` is a draft of your state
-// the second parameter is for dynamic values
-const setLoad5Action = (draftState, value) => {
-  draftState.cpu.load.m5 = value;
-};
-
 // React component
 function MyComponent() {
   useEffect(() => {
     // Dispatch action to alter state
     // This is a side effect!
     // DO NOT write it directly in a function component
-    store.dispatch(setLoad5Action, 1.15);
+    store.dispatch('YourActionType');
   }, []);
   return *JSX*;
 }
 ```
 
-More details about `dispatch` and `action`, please see [Store#dispatch](https://github.com/final-state/final-state#storedispatchaction-actionparams).
+More details about `dispatch` and `action`, please see [Store#dispatch](https://github.com/final-state/final-state#storedispatchtype-params).
 
 ### Use with `react-router`
 
