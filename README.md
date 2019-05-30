@@ -191,11 +191,26 @@ import { useCriteria } from 'react-final-state';
 const load5 = useCriteria(store, 'cpu.load.m5');
 ```
 
-The signature of `useCriteria`:
+The signatures of `useCriteria`:
 
-```javascript
+```typescript
+// `useCriteria` has 3 overloads
 // store is the instance of Store
-useCriteria(store, path);
+// path is the object path of your state
+// setter is optional, set to true to get a setter of your state
+function useCriteria<T>(store: Store, path: string): T | undefined;
+
+function useCriteria<T>(
+  store: Store,
+  path: string,
+  setter: false,
+): T | undefined;
+
+function useCriteria<T>(
+  store: Store,
+  path: string,
+  setter: true,
+): [T | undefined, (value: T) => void];
 ```
 
 It's inner implementation is:
@@ -215,6 +230,13 @@ path = 'a[0][1][2].b.c';
 See https://lodash.com/docs/4.17.11#get for more details about `path`.
 
 If your `path` is invalid or not existing, you'll get a `undefined` from `useCriteria`.
+
+If you set `setter` parameter to `true`, the return type of `useCriteria` will be an array of 2 elements:
+
+- #0 the state you are tracking
+- #1 the setter function of the state you are tracking
+
+(Just think about `const [count, setCount] = useState()`)
 
 ### useSubscription
 
@@ -273,4 +295,4 @@ yarn test
 
 - [x] Fix tests
 
-- [ ] Codecov 100%
+- [x] Codecov 100%
