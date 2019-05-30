@@ -29,15 +29,15 @@ const actions: ActionMap<State> = {
 const store = new Store(initialState, actions, 'react-router');
 
 export function useMatch() {
-  return useCriteria<Match>(store, 'match');
+  return useCriteria<Match>(store, 'match', false);
 }
 
 export function useLocation() {
-  return useCriteria<Location>(store, 'location');
+  return useCriteria<Location>(store, 'location', false);
 }
 
 export function useHistory() {
-  return useCriteria<History>(store, 'history');
+  return useCriteria<History>(store, 'history', false);
 }
 
 export function applyLogger(logger: (store: Store) => void) {

@@ -271,6 +271,6 @@ yarn test
 
 ## Road Map
 
-[] Fix tests
+- [x] Fix tests
 
-[] Codecov 100%
+- [ ] Codecov 100%

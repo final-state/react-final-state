@@ -1,7 +1,5 @@
 /* eslint-disable no-console,no-param-reassign,react/jsx-one-expression-per-line */
-
-import React, { useState } from 'react';
-import renderer from 'react-test-renderer';
+import { renderHook, act } from 'react-hooks-testing-library';
 import Store from 'final-state';
 import { useCriteria, useSubscription } from '../index';
 
@@ -12,56 +10,109 @@ const initialState = {
 };
 
 const actions = {
-  action1(draftState) {
-    draftState.a = 2;
+  setA(draftState, n) {
+    draftState.a = n;
   },
-  action2(draftState) {
-    draftState.b = 'bad';
-    draftState.c = false;
+  increaseA(draftState) {
+    draftState.a += 1;
+  },
+  setB(draftState, s) {
+    draftState.b = s;
+  },
+  setC(draftState, b) {
+    draftState.c = b;
   },
 };
 
-const store = new Store(initialState, actions, 'react-final-state-test');
+describe('Test `useCriteria`', () => {
+  test('`useCriteria(store, path)` works', () => {
+    const store = new Store(initialState, actions, 'react-final-state-test');
+    const { result: a } = renderHook(() => useCriteria(store, 'a'));
+    const newA = initialState + 1;
+    expect(a.current).toBe(initialState.a);
+    act(() => store.dispatch('setA', newA));
+    expect(a.current).toBe(newA);
+    act(() => store.dispatch('increaseA'));
+    expect(a.current).toBe(newA + 1);
 
-test('`useCriteria` can correctly track the changes of state', () => {
-  function TestComponent() {
-    const a = useCriteria(store, 'a');
-    const b = useCriteria(store, 'b');
-    const c = useCriteria(store, 'c').toString();
-    return (
-      <div>
-        <h1>a{a}</h1>
-        <h1>b{b}</h1>
-        <h1>c{c}</h1>
-      </div>
-    );
-  }
-  const component = renderer.create(<TestComponent />);
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-  store.dispatch('action1');
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-  store.dispatch('action2');
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+    const { result: b } = renderHook(() => useCriteria(store, 'b'));
+    const newB = 'bad';
+    expect(b.current).toBe(initialState.b);
+    act(() => store.dispatch('setB', newB));
+    expect(b.current).toBe(newB);
+
+    const { result: c } = renderHook(() => useCriteria(store, 'c'));
+    const newC = !initialState.c;
+    expect(c.current).toBe(initialState.c);
+    act(() => store.dispatch('setC', newC));
+    expect(c.current).toBe(newC);
+  });
+  test('`useCriteria(store, path, false)` works', () => {
+    const store = new Store(initialState, actions, 'react-final-state-test');
+    const { result: a } = renderHook(() => useCriteria(store, 'a', false));
+    const newA = initialState + 1;
+    expect(a.current).toBe(initialState.a);
+    act(() => store.dispatch('setA', newA));
+    expect(a.current).toBe(newA);
+    act(() => store.dispatch('increaseA'));
+    expect(a.current).toBe(newA + 1);
+
+    const { result: b } = renderHook(() => useCriteria(store, 'b', false));
+    const newB = 'bad';
+    expect(b.current).toBe(initialState.b);
+    act(() => store.dispatch('setB', newB));
+    expect(b.current).toBe(newB);
+
+    const { result: c } = renderHook(() => useCriteria(store, 'c', false));
+    const newC = !initialState.c;
+    expect(c.current).toBe(initialState.c);
+    act(() => store.dispatch('setC', newC));
+    expect(c.current).toBe(newC);
+  });
+  test('`useCriteria(store, path, true)` works', () => {
+    const store = new Store(initialState, actions, 'react-final-state-test');
+    const { result: a } = renderHook(() => useCriteria(store, 'a', true));
+    const newA = initialState + 1;
+    expect(a.current[0]).toBe(initialState.a);
+    act(() => store.dispatch('setA', newA));
+    expect(a.current[0]).toBe(newA);
+    act(() => store.dispatch('increaseA'));
+    expect(a.current[0]).toBe(newA + 1);
+    act(() => a.current[1](newA + 2));
+    expect(a.current[0]).toBe(newA + 2);
+
+    const { result: b } = renderHook(() => useCriteria(store, 'b', true));
+    const newB = 'bad';
+    expect(b.current[0]).toBe(initialState.b);
+    act(() => store.dispatch('setB', newB));
+    expect(b.current[0]).toBe(newB);
+    act(() => b.current[1]('good/bad'));
+    expect(b.current[0]).toBe('good/bad');
+
+    const { result: c } = renderHook(() => useCriteria(store, 'c', true));
+    const newC = !initialState.c;
+    expect(c.current[0]).toBe(initialState.c);
+    act(() => store.dispatch('setC', newC));
+    expect(c.current[0]).toBe(newC);
+    act(() => c.current[1](!newC));
+    expect(c.current[0]).toBe(!newC);
+  });
 });
 
-test('`useSubscription` works', () => {
-  function TestComponent() {
-    const [count, setCount] = useState(0);
-    useSubscription(store, () => {
-      setCount(prev => prev + 1);
-    });
-    return <h1>{count}</h1>;
-  }
-  const component = renderer.create(<TestComponent />);
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-  store.dispatch('action1');
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-  store.dispatch('action2');
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+describe('Test `useSubscription`', () => {
+  test('it works', () => {
+    let count = 0;
+    const store = new Store(initialState, actions, 'react-final-state-test');
+    renderHook(() =>
+      useSubscription(store, () => {
+        count += 1;
+      }),
+    );
+    act(() => store.dispatch('setA'));
+    expect(count).toBe(1);
+    act(() => store.dispatch('setB'));
+    expect(count).toBe(2);
+    act(() => store.dispatch('setC'));
+    expect(count).toBe(3);
+  });
 });
