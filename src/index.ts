@@ -62,7 +62,7 @@ function _useCriteria<T>(store: Store, path: string, setter?: boolean) {
   const listener = useCallback(() => setCriteria(getCriteria()), [getCriteria]);
   useSubscription(store, listener);
   const setterFunction = useCallback((value: T) => {
-    store.dispatchAction(setterAction, {
+    store.dispatch(setterAction, {
       path,
       value,
     });

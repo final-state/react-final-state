@@ -14,14 +14,14 @@ interface State {
 
 const initialState: State = {};
 
-const actions: ActionMap<State> = {
-  setMatch(draftState, match) {
+const actions: ActionMap = {
+  setMatch(draftState: State, match: Match) {
     draftState.match = match;
   },
-  setHistory(draftState, history) {
+  setHistory(draftState: State, history: History) {
     draftState.history = history;
   },
-  setLocation(draftState, location) {
+  setLocation(draftState: State, location: Location) {
     draftState.location = location;
   },
 };
