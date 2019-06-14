@@ -114,45 +114,6 @@ function MyComponent() {
 
 More details about `dispatch` and `action`, please see [Store#dispatch](https://github.com/final-state/final-state#storedispatchtype-params).
 
-### Use with `react-router`
-
-Add `RouterState` component as a child of `BrowserRouter`:
-
-```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import RouterState from 'react-final-state';
-import App from './App';
-
-ReactDOM.render(
-  <BrowserRouter>
-    <RouterState />
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root'),
-);
-```
-
-Track router's state:
-
-```javascript
-import { useHistory, useLocation, useMatch } from 'react-final-state';
-// use these hooks to track router's state
-const history = useHistory();
-const location = useLocation();
-const match = useMatch();
-```
-
-Use `final-state-logger` to print the changes of react-router's state
-
-```javascript
-import { applyLogger } from 'react-final-state';
-import finalStateLogger from 'final-state-logger';
-
-applyLogger(finalStateLogger);
-```
-
 ## API Reference
 
 ### useCriteria
@@ -235,34 +196,6 @@ const listener = React.useCallback(...);
 // store is the instance of Store
 useSubscription(store, listener);
 ```
-
-### react-router
-
-#### RouterState
-
-```javascript
-import RouterState from 'react-final-state';
-```
-
-It is a "shadow" component that renders nothing but helps us track the latest state of `react-router`.
-
-So you should add it before your business code like the [example](https://github.com/final-state/react-final-state/blob/master/README.md#use-with-react-router)
-
-#### useHistory, useLocation, useMatch
-
-```javascript
-import { useHistory, useLocation, useMatch } from 'react-final-state';
-```
-
-Hooks for you to track the `history`, `location` and `match` of [react-router withRouter](https://reacttraining.com/react-router/web/api/withRouter)
-
-#### applyLogger
-
-```javascript
-import { applyLogger } from 'react-final-state';
-```
-
-A helper function to apply `final-state-logger` to the store instance of `react-final-state/react-router`
 
 ## Test
 

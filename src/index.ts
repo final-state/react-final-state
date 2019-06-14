@@ -12,10 +12,7 @@ import Store, { Listener, Action } from 'final-state';
  * @param listener the listener that will be triggered when state is changed
  */
 export function useSubscription(store: Store, listener: Listener) {
-  useEffect(() => {
-    store.subscribe(listener);
-    return () => store.unSubscribe(listener);
-  }, [store, listener]);
+  useEffect(() => store.subscribe(listener), [store, listener]);
 }
 
 const setterAction: Action<
