@@ -1,15 +1,21 @@
 /* eslint-disable no-console,no-param-reassign,react/jsx-one-expression-per-line */
-import { renderHook, act } from 'react-hooks-testing-library';
-import Store from 'final-state';
-import { useCriteria, useSubscription } from '../index';
+import { renderHook, act } from '@testing-library/react-hooks';
+import { createStore, ActionMap } from '@liyuanqiu/final-state';
+import { useCriteria, useSubscription } from '../src';
 
-const initialState = {
+interface State {
+  a: number;
+  b: string;
+  c: boolean;
+}
+
+const initialState: State = {
   a: 1,
   b: 'good',
   c: true,
 };
 
-const actions = {
+const actions: ActionMap = {
   setA(draftState, n) {
     draftState.a = n;
   },
@@ -26,9 +32,9 @@ const actions = {
 
 describe('Test `useCriteria`', () => {
   test('`useCriteria(store, path)` works', () => {
-    const store = new Store(initialState, actions, 'react-final-state-test');
+    const store = createStore(initialState, actions, 'react-final-state-test');
     const { result: a } = renderHook(() => useCriteria(store, 'a'));
-    const newA = initialState + 1;
+    const newA = initialState.a + 1;
     expect(a.current).toBe(initialState.a);
     act(() => {
       store.dispatch('setA', newA);
@@ -56,9 +62,9 @@ describe('Test `useCriteria`', () => {
     expect(c.current).toBe(newC);
   });
   test('`useCriteria(store, path, false)` works', () => {
-    const store = new Store(initialState, actions, 'react-final-state-test');
+    const store = createStore(initialState, actions, 'react-final-state-test');
     const { result: a } = renderHook(() => useCriteria(store, 'a', false));
-    const newA = initialState + 1;
+    const newA = initialState.a + 1;
     expect(a.current).toBe(initialState.a);
     act(() => {
       store.dispatch('setA', newA);
@@ -86,9 +92,9 @@ describe('Test `useCriteria`', () => {
     expect(c.current).toBe(newC);
   });
   test('`useCriteria(store, path, true)` works', () => {
-    const store = new Store(initialState, actions, 'react-final-state-test');
+    const store = createStore(initialState, actions, 'react-final-state-test');
     const { result: a } = renderHook(() => useCriteria(store, 'a', true));
-    const newA = initialState + 1;
+    const newA = initialState.a + 1;
     expect(a.current[0]).toBe(initialState.a);
     act(() => {
       store.dispatch('setA', newA);
@@ -132,7 +138,7 @@ describe('Test `useCriteria`', () => {
 describe('Test `useSubscription`', () => {
   test('it works', () => {
     let count = 0;
-    const store = new Store(initialState, actions, 'react-final-state-test');
+    const store = createStore(initialState, actions, 'react-final-state-test');
     renderHook(() =>
       useSubscription(store, () => {
         count += 1;
