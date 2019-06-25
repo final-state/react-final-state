@@ -27,7 +27,7 @@ You can instantiate the store instance anywhere and export it out for use.
 
 ```javascript
 // file: YOUR_PATH/store.js
-import Store from 'final-state';
+import { createStore } from 'final-state';
 
 // 1. define the whole state tree
 const initialState = {};
@@ -41,14 +41,14 @@ const actions = {
   },
 };
 // 3. create store instance and export it out
-export default new Store(initialState, actions, 'store-name-1');
+export default createStore(initialState, actions, 'store-name-1');
 ```
 
 You may want to use multiple store in your app, that's fine, just create multiple store instances and export them out:
 
 ```javascript
 // file: YOUR_PATH/store.js
-import Store from 'final-state';
+import { createStore } from 'final-state';
 
 const fooInitialState = {};
 const fooActions = {
@@ -56,7 +56,7 @@ const fooActions = {
     // ...
   },
 },
-export const fooStore = new Store(fooInitialState, fooActions, 'foo');
+export const fooStore = createStore(fooInitialState, fooActions, 'foo');
 
 const barInitialState = {};
 const barActions = {
@@ -64,7 +64,7 @@ const barActions = {
     // ...
   },
 },
-export const barStore = new Store(barInitialState, barActions, 'bar');
+export const barStore = createStore(barInitialState, barActions, 'bar');
 ```
 
 ### How to track state
