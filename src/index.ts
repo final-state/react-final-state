@@ -56,14 +56,20 @@ function _useCriteria<T>(store: Store, path: string, setter?: boolean) {
     return get(state, path);
   }, [store, path]);
   const [criteria, setCriteria] = useState(getCriteria());
+  useEffect(() => {
+    setCriteria(getCriteria());
+  }, [getCriteria]);
   const listener = useCallback(() => setCriteria(getCriteria()), [getCriteria]);
   useSubscription(store, listener);
-  const setterFunction = useCallback((value: T) => {
-    store.dispatch(setterAction, {
-      path,
-      value,
-    });
-  }, []);
+  const setterFunction = useCallback(
+    (value: T) => {
+      store.dispatch(setterAction, {
+        path,
+        value,
+      });
+    },
+    [store, path],
+  );
   if (setter === undefined || setter === false) {
     return criteria;
   }
