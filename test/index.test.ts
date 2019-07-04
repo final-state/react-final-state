@@ -1,6 +1,6 @@
 /* eslint-disable no-console,no-param-reassign,react/jsx-one-expression-per-line */
 import { renderHook, act } from '@testing-library/react-hooks';
-import { createStore, ActionMap } from '@liyuanqiu/final-state';
+import { createStore, ActionMap } from 'final-state';
 import { useCriteria, useSubscription } from '../src';
 
 interface State {

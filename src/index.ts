@@ -2,7 +2,7 @@
 import get from 'lodash.get';
 import set from 'lodash.set';
 import { useEffect, useCallback, useState } from 'react';
-import { Store, Listener, Action } from '@liyuanqiu/final-state';
+import { Store, Listener, Action } from 'final-state';
 
 /**
  * A react hook to subscribe the changes of state

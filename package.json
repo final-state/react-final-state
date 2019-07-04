@@ -1,6 +1,6 @@
 {
-  "name": "@liyuanqiu/react-final-state",
-  "version": "1.0.3",
+  "name": "react-final-state",
+  "version": "1.0.0",
   "author": "yuanqiulee@gmail.com",
   "main": "dist/index.js",
   "module": "dist/react-final-state.esm.js",
@@ -31,7 +31,7 @@
     }
   },
   "devDependencies": {
-    "@liyuanqiu/final-state": "^1.0.7",
+    "final-state": "^1.1.0",
     "@testing-library/react-hooks": "^1.0.4",
     "@types/jest": "^24.0.15",
     "@types/lodash.get": "^4.4.6",

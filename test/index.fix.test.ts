@@ -1,4 +1,4 @@
-import { createStore } from '@liyuanqiu/final-state';
+import { createStore } from 'final-state';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { useState } from 'react';
 import { useCriteria } from '../src';
