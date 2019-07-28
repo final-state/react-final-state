@@ -164,7 +164,7 @@ test('`useCriteria(store, criteria, false)` works', () => {
   const criteriaA: Criteria<State['a'], State> = state => state.a;
   const criteriaB: Criteria<State['b'], State> = state => state.b;
   const criteriaC: Criteria<State['c'], State> = state => state.c;
-  const { result: a } = renderHook(() => useCriteria(store, criteriaA, false));
+  const { result: a } = renderHook(() => useCriteria(store, criteriaA));
   const newA = initialState.a + 1;
   expect(a.current).toBe(initialState.a);
   act(() => {
@@ -176,7 +176,7 @@ test('`useCriteria(store, criteria, false)` works', () => {
   });
   expect(a.current).toBe(newA + 1);
 
-  const { result: b } = renderHook(() => useCriteria(store, criteriaB, false));
+  const { result: b } = renderHook(() => useCriteria(store, criteriaB));
   const newB = 'bad';
   expect(b.current).toBe(initialState.b);
   act(() => {
@@ -184,7 +184,7 @@ test('`useCriteria(store, criteria, false)` works', () => {
   });
   expect(b.current).toBe(newB);
 
-  const { result: c } = renderHook(() => useCriteria(store, criteriaC, false));
+  const { result: c } = renderHook(() => useCriteria(store, criteriaC));
   const newC = !initialState.c;
   expect(c.current).toBe(initialState.c);
   act(() => {
