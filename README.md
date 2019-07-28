@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/final-state/react-final-state.svg?branch=master)](https://travis-ci.com/final-state/react-final-state)
 [![codecov.io](https://codecov.io/gh/final-state/react-final-state/branch/master/graph/badge.svg)](https://codecov.io/gh/final-state/react-final-state)
 [![Known Vulnerabilities](https://snyk.io/test/github/final-state/react-final-state/badge.svg)](https://snyk.io/test/github/react-final-state/final-state)
-[![minified + gzip](https://badgen.net/bundlephobia/minzip/react-final-state@1.0.2)](https://bundlephobia.com/result?p=react-final-state@1.0.2)
+[![minified + gzip](https://badgen.net/bundlephobia/minzip/react-final-state@1.1.0)](https://bundlephobia.com/result?p=react-final-state@1.1.0)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 # react-final-state
