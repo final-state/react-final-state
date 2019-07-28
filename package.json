@@ -1,6 +1,6 @@
 {
   "name": "react-final-state",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "yuanqiulee@gmail.com",
   "main": "dist/index.js",
   "module": "dist/react-final-state.esm.js",
