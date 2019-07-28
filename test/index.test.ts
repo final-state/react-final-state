@@ -1,7 +1,7 @@
 /* eslint-disable no-console,no-param-reassign,react/jsx-one-expression-per-line */
 import { renderHook, act } from '@testing-library/react-hooks';
 import { createStore, ActionMap } from 'final-state';
-import { useCriteria, useSubscription } from '../src';
+import { useCriteria, useSubscription, Criteria } from '../src';
 
 interface State {
   a: number;
@@ -134,7 +134,64 @@ describe('Test `useCriteria`', () => {
     expect(c.current[0]).toBe(!newC);
   });
 });
+test('`useCriteria(store, criteria, true) will show warning in javascript`', () => {
+  // NOTE: this case is simulating javascript
+  const store = createStore(initialState, actions, 'react-final-state-test');
+  // @ts-ignore
+  const criteria = state => state.a;
+  // @ts-ignore
+  const { result: a } = renderHook(() => useCriteria(store, criteria, true));
+  const newA = initialState.a + 1;
+  expect(a.current[0]).toBe(initialState.a);
+  act(() => {
+    store.dispatch('setA', newA);
+  });
+  expect(a.current[0]).toBe(newA);
+  act(() => {
+    store.dispatch('increaseA');
+  });
+  expect(a.current[0]).toBe(newA + 1);
+  const spy = jest.spyOn(console, 'warn');
+  expect(spy).not.toHaveBeenCalled();
+  act(() => {
+    a.current[1](newA + 2);
+  });
+  expect(spy).toHaveBeenCalled();
+  spy.mockRestore();
+});
+test('`useCriteria(store, criteria, false)` works', () => {
+  const store = createStore(initialState, actions, 'react-final-state-test');
+  const criteriaA: Criteria<State['a'], State> = state => state.a;
+  const criteriaB: Criteria<State['b'], State> = state => state.b;
+  const criteriaC: Criteria<State['c'], State> = state => state.c;
+  const { result: a } = renderHook(() => useCriteria(store, criteriaA, false));
+  const newA = initialState.a + 1;
+  expect(a.current).toBe(initialState.a);
+  act(() => {
+    store.dispatch('setA', newA);
+  });
+  expect(a.current).toBe(newA);
+  act(() => {
+    store.dispatch('increaseA');
+  });
+  expect(a.current).toBe(newA + 1);
 
+  const { result: b } = renderHook(() => useCriteria(store, criteriaB, false));
+  const newB = 'bad';
+  expect(b.current).toBe(initialState.b);
+  act(() => {
+    store.dispatch('setB', newB);
+  });
+  expect(b.current).toBe(newB);
+
+  const { result: c } = renderHook(() => useCriteria(store, criteriaC, false));
+  const newC = !initialState.c;
+  expect(c.current).toBe(initialState.c);
+  act(() => {
+    store.dispatch('setC', newC);
+  });
+  expect(c.current).toBe(newC);
+});
 describe('Test `useSubscription`', () => {
   test('it works', () => {
     let count = 0;

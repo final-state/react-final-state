@@ -30,30 +30,81 @@ const setterAction: Action<
 };
 
 /**
- * A react hook to help you tracking a state by criteria.
- * @param store specify which store instance you want to track state
- * @param {string} path the path of the property to track.
- * @see https://lodash.com/docs/4.17.11#get
+ * A function to get value from state
+ * @param {K} state
  * @template T the type of the state that you are tracking
- *
- * You can do it by yourself. This is just a shortcut hook.
+ * @template K the type of the state
  */
-function _useCriteria<T>(store: Store, path: string): T | undefined;
-function _useCriteria<T>(
-  store: Store,
+export type Criteria<T, K> = (state: K) => T;
+
+/**
+ * A react hook to help you tracking a state by criteria.
+ * @param {Store} store specify which store instance you want to track state
+ * @param {string} path the path(or a getter function) of the property to track.
+ * @see https://lodash.com/docs/4.17.11#get for more information about `path`
+ * @template T the type of the state that you are tracking
+ * @template K the type of the whole state
+ * @returns the latest value of the state that you are tracking
+ */
+function _useCriteria<T = any, K = any>(
+  store: Store<K>,
+  path: string,
+): T | undefined;
+
+/**
+ * A react hook to help you tracking a state by criteria.
+ * @param {Store} store specify which store instance you want to track state
+ * @param {Criteria} path a getter function to get the property to track.
+ * @template T the type of the state that you are tracking
+ * @template K the type of the whole state
+ * @returns the latest value of the state that you are tracking
+ */
+function _useCriteria<T = any, K = any>(
+  store: Store<K>,
+  path: Criteria<T, K>,
+): T | undefined;
+
+// Going to be deprecated in later versions
+function _useCriteria<T = any, K = any>(
+  store: Store<K>,
   path: string,
   setter: false,
 ): T | undefined;
-function _useCriteria<T>(
-  store: Store,
+
+// Going to be deprecated in later versions
+function _useCriteria<T = any, K = any>(
+  store: Store<K>,
   path: string,
   setter: true,
 ): [T | undefined, (value: T) => void];
+
+/**
+ * A react hook to help you tracking a state by criteria.
+ * @param store specify which store instance you want to track state
+ * @param {string | Criteria} path the path(or a getter function) of the property to track.
+ * @see https://lodash.com/docs/4.17.11#get when path is string
+ * @param {boolean | undefined} setter if set to true, will return a shortcut setter function to set the state directly
+ * @template T the type of the state that you are tracking
+ * @template K the type of the whole state
+ */
 // eslint-disable-next-line no-underscore-dangle
-function _useCriteria<T>(store: Store, path: string, setter?: boolean) {
+function _useCriteria<T, K>(
+  store: Store<K>,
+  path: string | Criteria<T, K>,
+  setter?: boolean,
+) {
+  if (setter !== undefined) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `useCriteria(store, path, setter) will be deprecated in later versions, please remove "setter" arguments.`,
+    );
+  }
   const getCriteria = useCallback((): T | undefined => {
     const state = store.getState();
-    return get(state, path);
+    if (typeof path === 'string') {
+      return get(state, path);
+    }
+    return path(state);
   }, [store, path]);
   const [criteria, setCriteria] = useState(getCriteria());
   useEffect(() => {
@@ -61,12 +112,20 @@ function _useCriteria<T>(store: Store, path: string, setter?: boolean) {
   }, [getCriteria]);
   const listener = useCallback(() => setCriteria(getCriteria()), [getCriteria]);
   useSubscription(store, listener);
+  // only for setter = true
   const setterFunction = useCallback(
     (value: T) => {
-      store.dispatch(setterAction, {
-        path,
-        value,
-      });
+      if (typeof path === 'string') {
+        store.dispatch(setterAction, {
+          path,
+          value,
+        });
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `useCriteria(store, path, setter = true) will be deprecated in later versions, please remove "setter" arguments.`,
+        );
+      }
     },
     [store, path],
   );
