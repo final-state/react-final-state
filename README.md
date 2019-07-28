@@ -11,11 +11,10 @@
 ## Installation
 
 ```bash
+# React >= 16.8.0 must have been already installed
 yarn add final-state
 yarn add react-final-state
 ```
-
-You should care about the `peer dependencies` of these two packages. If something not installed, just install them manually.
 
 `final-state` and `react-final-state` are written in `Typescript`, so you don't need to find a type definition for it.
 
@@ -136,7 +135,7 @@ const load5 = useCriteria(store, 'cpu.load.m5');
 The signatures of `useCriteria`:
 
 ```typescript
-// `useCriteria` has 3 overloads
+// `useCriteria` has these overloads
 /**
  * A react hook to help you tracking a state by criteria.
  * @param {Store} store specify which store instance you want to track state
@@ -199,7 +198,7 @@ See https://lodash.com/docs/4.17.11#get for more details about `path`.
 
 If your `path` is invalid or not existing, you'll get a `undefined` from `useCriteria`.
 
-#### When `path` is Criteria
+#### When `path` is `Criteria`
 
 Let's see the definition of `Criteria` first:
 
@@ -256,7 +255,7 @@ or right now in javascript with [@babel/preset-stage-3](https://babeljs.io/docs/
 
 #### About `setter`
 
-**The setter arguments is going to be deprecated!!! DO NOT use it any more!!!**
+**The `setter` argument is going to be deprecated!!! DO NOT use it any more!!!**
 
 If you set `setter` parameter to `true`, the return type of `useCriteria` will be an array of 2 elements:
 
