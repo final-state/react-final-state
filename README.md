@@ -161,7 +161,7 @@ function _useCriteria<T = any, K = any>(
 function _useCriteria<T = any, K = any>(
   store: Store<K>,
   path: Criteria<T, K>,
-): T | undefined;
+): T;
 
 // Going to be deprecated in later versions
 function _useCriteria<T = any, K = any>(
