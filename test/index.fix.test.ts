@@ -14,7 +14,7 @@ const initialState: State = {
 };
 
 describe('Tests for fixes', () => {
-  test('useCriteria criteria should be updated when `store` or `path` changed', () => {
+  test("useCriteria criteria shouldn't be updated when `store` or `path` changed", () => {
     const store = createStore(initialState, {}, 'test');
     const { result: pathResult } = renderHook(() => useState('a'));
     const { result: valueResult, rerender: valueRerender } = renderHook(() =>
@@ -25,9 +25,9 @@ describe('Tests for fixes', () => {
       pathResult.current[1]('b');
       valueRerender();
     });
-    expect(valueResult.current).toBe(initialState.b);
+    expect(valueResult.current).toBe(initialState.a);
   });
-  test('useCriteria setter should work when `store` or `path` changed', () => {
+  test("useCriteria setter shouldn't work when `store` or `path` changed", () => {
     const store = createStore(initialState, {}, 'test');
     const { result: pathResult } = renderHook(() => useState('a'));
     const { result: valueResult, rerender: valueRerender } = renderHook(() =>
@@ -42,12 +42,12 @@ describe('Tests for fixes', () => {
       pathResult.current[1]('b');
       valueRerender();
     });
-    expect(valueResult.current[0]).toBe(initialState.b);
+    expect(valueResult.current[0]).toBe(5);
     act(() => {
       valueResult.current[1](10);
     });
     expect(valueResult.current[0]).toBe(10);
-    expect(store.getState().a).toBe(5);
-    expect(store.getState().b).toBe(10);
+    expect(store.getState().a).toBe(10);
+    expect(store.getState().b).toBe(initialState.b);
   });
 });

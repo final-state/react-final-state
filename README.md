@@ -219,6 +219,8 @@ const path: Criteria<number, State> = state => state.cpu.load.m5;
 const load5 = useCriteria<number, State>(store, path);
 ```
 
+> Note: `useCriteria` only uses the first `path` that passed in. So `useCriteria(store, state => state.cpu.load.m5)` is safe.
+
 This overload of `useCriteria` is added in Jul 28 2019, because [Optional Chaining](https://github.com/tc39/proposal-optional-chaining) is changed to `stage-3` few days ago, that means Typescript will support it soon.
 
 Let's think about this expression in the example above: `state.cpu.load.m5`. If `load` is optional, like this:

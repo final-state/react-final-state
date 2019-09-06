@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-explicit-any:0 */
 import get from 'lodash.get';
 import set from 'lodash.set';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useRef } from 'react';
 import { Store, Listener, Action } from 'final-state';
 
 /**
@@ -93,6 +93,7 @@ function _useCriteria<T, K>(
   path: string | Criteria<T, K>,
   setter?: boolean,
 ) {
+  const pathRef = useRef(path);
   if (setter !== undefined) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -101,11 +102,11 @@ function _useCriteria<T, K>(
   }
   const getCriteria = useCallback((): T | undefined => {
     const state = store.getState();
-    if (typeof path === 'string') {
-      return get(state, path);
+    if (typeof pathRef.current === 'string') {
+      return get(state, pathRef.current);
     }
-    return path(state);
-  }, [store, path]);
+    return pathRef.current(state);
+  }, [store]);
   const [criteria, setCriteria] = useState(getCriteria());
   useEffect(() => {
     setCriteria(getCriteria());
@@ -115,9 +116,9 @@ function _useCriteria<T, K>(
   // only for setter = true
   const setterFunction = useCallback(
     (value: T) => {
-      if (typeof path === 'string') {
+      if (typeof pathRef.current === 'string') {
         store.dispatch(setterAction, {
-          path,
+          path: pathRef.current,
           value,
         });
       } else {
@@ -127,7 +128,7 @@ function _useCriteria<T, K>(
         );
       }
     },
-    [store, path],
+    [store],
   );
   if (setter === undefined || setter === false) {
     return criteria;
