@@ -20,7 +20,9 @@
     "pub": "bash scripts/pub.sh",
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --env=jsdom --coverage"
+    "test": "tsdx test --env=jsdom --coverage",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "peerDependencies": {
     "react": ">=16.8"
@@ -50,19 +52,21 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "final-state": "^1.1.1",
     "husky": "^2.4.1",
-    "immer": "^3.2.0",
+    "immer": "^9.0.6",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-test-renderer": "^16.8.6",
-    "tsdx": "^0.7.2",
+    "tsdx": "^0.14.0",
     "tslib": "^1.10.0",
     "typescript": "^3.6.2"
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2"
-  }
+    "lodash.set": "^4.3.2",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
